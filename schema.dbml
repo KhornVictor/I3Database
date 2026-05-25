@@ -1,0 +1,150 @@
+Table Users{
+  user_id int [pk]
+  name varchar 
+  email varchar [unique]
+  password varchar
+  phone varchar
+  address text
+  avatar varchar
+  role varchar
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+Table Restaurants{
+  restaurant_id int [pk] 
+  name varchar
+  description varchar
+  phone varchar
+  latitude decimal(10,8)
+  longitude decimal(11,8)
+  address text
+  image_url varchar
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+Table Categories{
+  category_id int [pk]
+  name varchar
+  image_url varchar
+}
+
+Table Menu_Items{
+  item_id int [pk]
+  restaurant_id int [not null, ref: > Restaurants.restaurant_id]
+  category_id int [not null, ref: > Categories.category_id]
+  name varchar 
+  description varchar
+  price decimal
+  image_url varchar
+  is_available boolean [default: true]
+}
+
+Table Carts{
+  cart_id int [pk]
+  user_id int [not null, unique, ref: > Users.user_id]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+Table Cart_Items{
+  cart_item_id int [pk]
+  cart_id int [not null, ref: > Carts.cart_id]
+  item_id int [not null, ref: > Menu_Items.item_id]
+  quantity int 
+  price decimal
+}
+
+Table Orders{
+  order_id int [pk]
+  user_id int [not null, ref: > Users.user_id]
+  promotion_id int [ref: > Promotions.promotion_id, null]
+  total_price decimal 
+  status varchar
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+Table Order_Items{
+  order_item_id int [pk]
+  order_id int [not null, ref: > Orders.order_id] 
+  item_id int [not null, ref: > Menu_Items.item_id]
+  quantity int 
+  price decimal
+}
+
+Table Payments{
+  payment_id int [pk]
+  order_id int [not null, unique, ref: - Orders.order_id]
+  amount double
+  payment_method varchar
+  status varchar
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+Table Reviews{
+  review_id int [pk]
+  user_id int [not null, ref: > Users.user_id]
+  restaurant_id int [not null, ref: > Restaurants.restaurant_id]
+  rating int
+  comment text
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+Table Delivery_Personnel{
+  delivery_person_id int [pk]
+  name varchar
+  phone varchar
+  vehicle_type varchar
+  current_location text
+  current_latitude decimal(10,8)
+  current_longitude decimal(11,8)
+  status varchar
+  rating double
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+Table Order_Status_History{
+  status_history_id int [pk]
+  order_id int [not null, ref: > Orders.order_id]
+  delivery_person_id int [not null, ref: > Delivery_Personnel.delivery_person_id]
+  status varchar
+  timestamp datetime
+  notes text
+}
+
+Table Deliveries{
+  delivery_id int [pk]
+  order_id int [not null, unique, ref: - Orders.order_id]
+  delivery_person_id int [not null, ref: > Delivery_Personnel.delivery_person_id]
+  pickup_location text
+  delivery_location text
+  estimated_arrival datetime
+  actual_arrival datetime
+  status varchar
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+Table Notifications{
+  notification_id int [pk]
+  user_id int [not null, ref: > Users.user_id]
+  order_id int [ref: > Orders.order_id, null]
+  type varchar 
+  title varchar
+  message text
+  is_read boolean [default: false]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  read_at datetime
+}
+
+Table Promotions {
+  promotion_id int [pk, increment]
+  code varchar [unique]
+  title varchar
+  description text
+  discount_type varchar
+  discount_value decimal
+  min_order_amount decimal
+  max_discount_amount decimal
+  start_date datetime
+  end_date datetime
+  is_active boolean [default: true]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+}
