@@ -110,6 +110,131 @@ INSERT INTO Notifications (user_id, order_id, type, title, message, is_read, rea
 (3, 3, 'delivery', 'Order Delivered', 'Your order has been delivered.', TRUE, '2026-05-23 18:30:00'),
 (4, NULL, 'promotion', 'New Promotion', 'Use WELCOME10 for discount.', FALSE, NULL);
 
+-- more insertion :) (from json of NomNom)
+-- Extra Users
+INSERT INTO Users
+(user_id, name, email, password, phone, address, avatar, role, created_at)
+VALUES
+(5, 'William Miller', 'william.miller@example.com', '123456', '+1-202-555-0105', '654 Birch Blvd, Phoenix, AZ', 'avatar5.jpg', 'customer', '2026-03-05 16:45:00'),
+(6, 'Sophia Wilson', 'sophia.wilson@example.com', '123456', '+1-202-555-0106', '987 Spruce Street, Philadelphia, PA', 'avatar6.jpg', 'customer', '2026-03-06 12:10:00'),
+(7, 'James Moore', 'james.moore@example.com', '123456', '+1-202-555-0107', '147 Elm Street, San Antonio, TX', 'avatar7.jpg', 'admin', '2026-03-07 08:55:00'),
+(8, 'Isabella Taylor', 'isabella.taylor@example.com', '123456', '+1-202-555-0108', '258 Walnut Avenue, San Diego, CA', 'avatar8.jpg', 'customer', '2026-03-08 13:25:00'),
+(9, 'Benjamin Anderson', 'ben.anderson@example.com', '123456', '+1-202-555-0109', '369 Chestnut Drive, Dallas, TX', 'avatar9.jpg', 'customer', '2026-03-09 15:40:00'),
+(10, 'Mia Thomas', 'mia.thomas@example.com', '123456', '+1-202-555-0110', '159 Poplar Court, San Jose, CA', 'avatar10.jpg', 'customer', '2026-03-10 17:50:00'),
+(11, 'John Smith', 'john.smith@example.com', '123456', '+1-202-555-0112', '123 Maple Street, New York, NY', 'avatar11.jpg', 'customer', '2026-03-01 10:15:00'),
+(12, 'Lisa Chan', 'lisa@example.com', '123456', '+855-12-345-678', 'BKK1, Phnom Penh', 'avatar12.jpg', 'customer', '2026-03-11 10:00:00'),
+(13, 'David Kim', 'david@example.com', '123456', '+855-98-222-333', 'Toul Kork, Phnom Penh', 'avatar13.jpg', 'customer', '2026-03-11 11:00:00'),
+(14, 'Anna Lee', 'anna@example.com', '123456', '+855-97-444-555', 'Chroy Changvar, Phnom Penh', 'avatar14.jpg', 'customer', '2026-03-11 12:00:00'),
+(15, 'Chris Wong', 'chris@example.com', '123456', '+855-96-111-222', 'Sen Sok, Phnom Penh', 'avatar15.jpg', 'customer', '2026-03-11 13:00:00');
+
+-- EXTRA PROMOTIONS
+INSERT INTO Promotions
+(promotion_id, code, title, description, discount_type, discount_value, min_order_amount, max_discount_amount, start_date, end_date, is_active)
+VALUES
+(3, 'FOOD20', 'Food Discount', '20 percent off selected orders', 'percentage', 20.00, 10.00, 5.00, '2026-05-01 00:00:00', '2026-07-01 23:59:59', TRUE),
+(4, 'DRINK5', 'Drink Discount', 'Fixed discount for drinks', 'fixed', 2.00, 5.00, 2.00, '2026-05-01 00:00:00', '2026-07-01 23:59:59', TRUE),
+(5, 'BIGMEAL', 'Big Meal Promo', 'Discount for large orders', 'percentage', 15.00, 25.00, 6.00, '2026-05-01 00:00:00', '2026-08-01 23:59:59', TRUE);
+
+-- EXTRA DELIVERY PERSONNEL
+INSERT INTO Delivery_Personnel
+(delivery_person_id, name, phone, vehicle_type, current_location, current_latitude, current_longitude, status, rating)
+VALUES
+(4, 'Vireak Long', '096222333', 'motorbike', 'Phnom Penh', 11.55640000, 104.92820000, 'available', 4.6),
+(5, 'Sokha Lim', '097444555', 'motorbike', 'Toul Kork', 11.56210000, 104.91600000, 'busy', 4.4),
+(6, 'Nita Chan', '098666777', 'motorbike', 'BKK1', 11.55000000, 104.92000000, 'available', 4.9),
+(7, 'Davin Roeun', '099888999', 'motorbike', 'Russian Market', 11.54500000, 104.91000000, 'offline', 4.1);
+
+-- EXTRA ORDERS 
+INSERT INTO Orders
+(order_id, user_id, promotion_id, total_price, status)
+VALUES
+(5, 5, 3, 18.50, 'confirmed'),
+(6, 6, NULL, 12.75, 'preparing'),
+(7, 8, 4, 6.00, 'delivered'),
+(8, 9, NULL, 21.50, 'out_for_delivery'),
+(9, 10, 5, 30.00, 'confirmed'),
+(10, 12, NULL, 9.99, 'cancelled');
+
+-- EXTRA ORDER ITEMS 
+INSERT INTO Order_Items
+(order_item_id, order_id, item_id, quantity, price)
+VALUES
+(7, 5, 3, 1, 12.00),
+(8, 5, 21, 2, 2.50),
+(9, 6, 5, 1, 9.99),
+(10, 6, 23, 1, 2.75),
+(11, 7, 25, 2, 3.00),
+(12, 8, 18, 1, 12.00),
+(13, 8, 29, 2, 3.00),
+(14, 9, 64, 2, 12.99),
+(15, 9, 88, 1, 3.50),
+(16, 10, 6, 1, 9.99);
+
+-- EXTRA PAYMENTS 
+INSERT INTO Payments
+(payment_id, order_id, amount, payment_method, status)
+VALUES
+(5, 5, 18.50, 'online', 'paid'),
+(6, 6, 12.75, 'card', 'pending'),
+(7, 7, 6.00, 'cash', 'paid'),
+(8, 8, 21.50, 'online', 'paid'),
+(9, 9, 30.00, 'card', 'paid'),
+(10, 10, 9.99, 'online', 'failed');
+
+-- EXTRA DELIVERIES 
+INSERT INTO Deliveries
+(delivery_id, order_id, delivery_person_id, pickup_location, delivery_location, estimated_arrival, actual_arrival, status)
+VALUES
+(8, 5, 4, 'Pasta Corner', 'Phoenix, AZ', '2026-05-25 12:30:00', NULL, 'assigned'),
+(9, 6, 5, 'Brown Coffee', 'Philadelphia, PA', '2026-05-25 13:00:00', NULL, 'picked_up'),
+(10, 7, 6, 'Starbucks', 'San Diego, CA', '2026-05-24 11:30:00', '2026-05-24 11:25:00', 'delivered'),
+(11, 8, 5, 'Pizza Hut', 'Dallas, TX', '2026-05-25 14:00:00', NULL, 'delivering'),
+(12, 9, 4, 'DQ', 'San Jose, CA', '2026-05-25 15:00:00', NULL, 'assigned');
+
+-- EXTRA ORDER STATUS HISTORY 
+-- INSERT IGNORE INTO Order_Status_History
+-- (status_history_id, order_id, delivery_person_id, status, notes)
+-- VALUES
+-- (6, 5, 4, 'preparing', 'Restaurant is preparing the order'),
+-- (7, 6, 5, 'preparing', 'Food is being prepared'),
+-- (8, 7, 6, 'delivered', 'Order delivered successfully'),
+-- (9, 8, 5, 'out_for_delivery', 'Driver is on the way'),
+-- (10, 9, 4, 'confirmed', 'Order confirmed'),
+-- (11, 10, 4, 'cancelled', 'Order cancelled by customer');
+
+-- EXTRA REVIEWS
+INSERT INTO Reviews
+(review_id, user_id, restaurant_id, rating, comment)
+VALUES
+(11, 5, 6, 4, 'Good burger and quick service.'),
+(12, 6, 3, 5, 'Coffee was fresh and tasty.'),
+(13, 8, 8, 4, 'Dessert was nice.'),
+(14, 9, 8, 5, 'Pizza was very good.'),
+(15, 10, 7, 5, 'Milk tea was amazing.');
+
+-- EXTRA NOTIFICATIONS
+INSERT INTO Notifications
+(notification_id, user_id, order_id, type, title, message, is_read, read_at)
+VALUES
+(6, 5, 5, 'order', 'Order Confirmed', 'Your order has been confirmed.', FALSE, NULL),
+(7, 6, 6, 'order', 'Food Preparing', 'The restaurant is preparing your food.', FALSE, NULL),
+(8, 8, 7, 'delivery', 'Order Delivered', 'Your order has been delivered.', TRUE, '2026-05-24 11:30:00'),
+(9, 9, 8, 'delivery', 'Out for Delivery', 'Your food is on the way.', FALSE, NULL),
+(10, 10, 9, 'promotion', 'Promotion Applied', 'Your promotion was applied successfully.', TRUE, '2026-05-25 10:20:00'),
+(11, 12, 10, 'order', 'Order Cancelled', 'Your order was cancelled.', FALSE, NULL),
+(12, 5, NULL, 'promotion', 'New Discount', 'Use FOOD20 for 20 percent off.', FALSE, NULL),
+(13, 6, NULL, 'system', 'New Restaurant', 'A new restaurant is available near you.', FALSE, NULL);
+
+-- EXTRA RESTAURANTS
+INSERT INTO Restaurants
+(restaurant_id, name, description, phone, latitude, longitude, address, image_url)
+VALUES
+(4, 'KFC', 'Fast food restaurant', '012111111', 11.5564, 104.9282, 'Phnom Penh', 'kfc.jpg'),
+(5, 'Starbucks', 'Coffee and drinks', '012222222', 11.5600, 104.9200, 'Phnom Penh', 'starbucks.jpg'),
+(6, 'Burger King', 'Burger restaurant', '012333333', 11.5500, 104.9100, 'Phnom Penh', 'bk.jpg'),
+(7, 'Pizza Hut', 'Pizza restaurant', '012444444', 11.5700, 104.9300, 'Phnom Penh', 'pizza.jpg'),
+(8, 'Brown Coffee', 'Coffee shop', '012555555', 11.5800, 104.9400, 'Phnom Penh', 'brown.jpg');
+
 INSERT INTO Menu_Items (restaurant_id, category_id, name, description, price, image_url, is_available) VALUES
 (1, 7, 'Grilled Chicken Plate', 'Juicy grilled chicken served with steamed vegetables and mashed potatoes.', 14.99, 'https://media.istockphoto.com/id/928823336/photo/grilled-chicken-breast-fried-chicken-fillet-and-fresh-vegetable-salad-of-tomatoes-cucumbers.jpg?s=612x612&w=0&k=20&c=x6KbcglhT_oxKEzCoSM5E8abP3rlEZAt7jQhlAPZtoY=', 1),
 (1, 7, 'BBQ Beef Ribs', 'Slow-cooked beef ribs glazed with smoky barbecue sauce.', 19.5, 'https://www.tasteofhome.com/wp-content/uploads/2017/09/exps39535_CW163683D03_31_2b-.jpg', 1),

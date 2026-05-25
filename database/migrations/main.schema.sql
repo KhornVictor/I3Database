@@ -175,6 +175,11 @@ CREATE TABLE Order_Status_History (
     FOREIGN KEY (delivery_person_id) REFERENCES Delivery_Personnel(delivery_person_id)
 );
 
+ALTER TABLE Order_Status_History
+ADD CONSTRAINT chk_order_status_history_status
+CHECK (status IN ('pending','confirmed','preparing','out_for_delivery','delivered','cancelled')
+);
+
 CREATE TABLE Deliveries (
     delivery_id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT NOT NULL UNIQUE,
@@ -351,3 +356,20 @@ DESCRIBE Deliveries;
 select * from information_schema.table_constraints where table_schema = 'nomnom';
 select * from information_schema.check_constraints where constraint_schema = 'nomnom';
 select * from information_schema.referential_constraints where constraint_schema = 'nomnom';
+
+-- view all table 
+SELECT * FROM Users;
+SELECT * FROM Restaurants;
+SELECT * FROM Categories;
+SELECT * FROM Menu_Items;
+SELECT * FROM Carts;
+SELECT * FROM Cart_Items;
+SELECT * FROM Orders;
+SELECT * FROM Order_Items;
+SELECT * FROM Payments;
+SELECT * FROM Reviews;
+SELECT * FROM Delivery_Personnel;
+SELECT * FROM Order_Status_History;
+SELECT * FROM Deliveries;
+SELECT * FROM Notifications;
+SELECT * FROM Promotions;
