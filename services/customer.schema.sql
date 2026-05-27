@@ -47,7 +47,7 @@ ON ci.cart_id = c.cart_id
 JOIN Users u
 ON c.user_id = u.user_id
 WHERE u.user_id = 3 
-GROUP BY user_id, name; -- (can also group by name but might duplicate)
+GROUP BY u.user_id, u.name;
 
 -- View customer order history
 SELECT o.order_id,
